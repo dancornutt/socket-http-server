@@ -43,7 +43,6 @@ def response_method_not_allowed():
 def response_not_found():
     """Returns a 404 Not Found response"""
 
-    # TODO: Implement response_not_found
     return b"\r\n".join([
         b"HTTP/1.1 404 Not Found"
     ])
@@ -94,9 +93,6 @@ def response_path(path):
     home_dir = "/home/dan/cert/scripts/py230/03_Lesson/assignment/socket-http-server/webroot"
     abs_path = home_dir + path
 
-    # TODO: Fill in the appropriate content and mime_type give the path.
-    # See the assignment guidelines for help on "mapping mime-types", though
-    # you might need to create a special case for handling make_time.py
     if os.path.isdir(abs_path):
         # directory
         mime_type = b"text/plain"
@@ -116,13 +112,6 @@ def response_path(path):
                 byte = f.read(1)
     elif not os.path.exists(abs_path):
         raise NameError("File not found!")
-
-    # TODO: Raise a NameError if the requested content is not present
-    # under webroot.
-
-    # If the path is "make_time.py", then you may OPTIONALLY return the
-    # result of executing `make_time.py`. But you need only return the
-    # CONTENTS of `make_time.py`.
 
     return content, mime_type
 
@@ -154,24 +143,14 @@ def server(log_buffer=sys.stderr):
 
                 try:
                     path = parse_request(request)
-                    # TODO: Use response_path to retrieve the content and the mimetype,
-                    # based on the request path.
                     content, mtype = response_path(path)
-
-                    # Else,
-                    # use the content and mimetype from response_path to build a
-                    # response_ok.
                     response = response_ok(
                         body=content,
                         mimetype=mtype
                     )
-                # If parse_request raised a NotImplementedError, then let
-                # response be a method_not_allowed response.
                 except NotImplementedError:
                     response = response_method_not_allowed()
 
-                # If response_path raised
-                # a NameError, then let response be a not_found response
                 except NameError:
                     response = response_not_found()
 
