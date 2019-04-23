@@ -107,6 +107,7 @@ def response_path(path):
             content = ""
             for item in lst:
                 content += " {},".format(item)
+            content = content.encode()
         elif os.path.isfile(abs_path):
             # file
             mime_type = mimetypes.guess_type(path)[0]
