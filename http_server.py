@@ -110,7 +110,7 @@ def response_path(path):
             content = content.encode()
         elif os.path.isfile(abs_path):
             # file
-            mime_type = mimetypes.guess_type(path)[0]
+            mime_type = mimetypes.guess_type(path)[0].encode()
             content = b""
             with open(abs_path, "rb") as f:
                 byte = f.read(1)
